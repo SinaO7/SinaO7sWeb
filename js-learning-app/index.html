@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sina Momtaheni</title>
+    <link rel="stylesheet" href="/Web/Projects/js-learning-app/css/style.css ">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="text">
+            <h1>Sina Momtaheni</h1>
+            <p>Here you can saw some informations about me</p>
+        </nav>
+    </header>
+    <button class="theme-toggle" id="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="container">
+        <h1>60 Days of JavaScript</h1>
+        <div class="grid" id="lessons-container"></div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const currentTheme = localStorage.getItem('theme') || 'light';
+
+            body.setAttribute('data-theme', currentTheme);
+            updateThemeIcon(currentTheme);
+
+            themeToggle.addEventListener('click', () => {
+                const newTheme = body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+
+            function updateThemeIcon(theme) {
+                const icon = themeToggle.querySelector('i');
+                icon.classList.toggle('fa-moon', theme === 'light');
+                icon.classList.toggle('fa-sun', theme === 'dark');
+            }
+
+            // Lessons Data
+            const lessons = [ /* Your full lessons array here */ ];
+
+            // Generate Lessons
+            const container = document.getElementById('lessons-container');
+            lessons.forEach(lesson => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <h2>${lesson.title}</h2>
+                    <div class="card-content">
+                        <p>${lesson.content}</p>
+                        <pre><code>${lesson.code}</code></pre>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        });
+    </script>
+</body>
+</html>
